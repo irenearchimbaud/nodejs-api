@@ -1,0 +1,47 @@
+import { Request, Response } from 'express';
+import { TodoService } from '../services/todoService';
+import { asyncHandler } from '../utils/asyncHandler';
+
+const todoService = new TodoService();
+
+export const getAllTodos = asyncHandler(async (req: Request, res: Response) => {
+  const { completed, priority } = req.query;
+
+  if (completed !== undefined) {
+    const result = await todoService.findByStatus(completed === 'true');
+    return res.json(result);
+  }
+
+  if (priority !== undefined) {
+    const result = await todoService.findByPriority(priority as 'LOW' | 'MEDIUM' | 'HIGH');
+    return res.json(result);
+  }
+
+  const todos = await todoService.findAll();
+  res.json(todos);
+});
+
+export const getTodo = asyncHandler(async (req: Request, res: Response) => {
+  const todo = await todoService.findById(req.params.id);
+  res.json(todo);
+});
+
+export const createTodo = asyncHandler(async (req: Request, res: Response) => {
+  const todo = await todoService.create(req.body);
+  res.status(201).json(todo);
+});
+
+export const updateTodo = asyncHandler(async (req: Request, res: Response) => {
+  const updated = await todoService.update(req.params.id, req.body);
+  res.json(updated);
+});
+
+export const deleteTodo = asyncHandler(async (req: Request, res: Response) => {
+  await todoService.delete(req.params.id);
+  res.status(204).send();
+});
+
+export const toggleTodoComplete = asyncHandler(async (req: Request, res: Response) => {
+  const updated = await todoService.toggleComplete(req.params.id);
+  res.json(updated);
+});

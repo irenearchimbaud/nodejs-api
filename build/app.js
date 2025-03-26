@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import { errorHandler } from './middleware/errorHandler.js';
 const app = express();
-// Middlewares globaux
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
-// Route de test
 app.get('/', (_req, res) => {
-  res.send('API Todo en ligne 🎉');
+    res.send('API Todo en ligne 🎉');
 });
+app.use(errorHandler);
 export default app;
