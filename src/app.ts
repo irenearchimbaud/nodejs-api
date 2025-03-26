@@ -11,7 +11,7 @@ app.use(cors());
 app.use(helmet());
 
 app.get('/', (_req, res) => {
-  res.send('API Todo en ligne 🎉');
+  res.send('API Todo en ligne');
 });
 
 app.use('/api', router);
