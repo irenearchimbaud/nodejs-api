@@ -1,5 +1,5 @@
-import { TodoService } from '../services/todoService';
-import { asyncHandler } from '../utils/asyncHandler';
+import { TodoService } from '../services/todoService.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
 const todoService = new TodoService();
 export const getAllTodos = asyncHandler(async (req, res) => {
     const { completed, priority } = req.query;

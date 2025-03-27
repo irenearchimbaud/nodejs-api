@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { errorHandler } from './middleware/errorHandler';
-import router from './routes/todo.routes';
+import { errorHandler } from './middleware/errorHandler.js';
+import router from './routes/todo.routes.js';
 
 const app = express();
 
